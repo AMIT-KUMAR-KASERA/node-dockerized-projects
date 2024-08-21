@@ -1,5 +1,7 @@
 pipeline {
     agent any
+      tools {
+          nodeJS "NodeJS"
     stages{
         stage("checkout"){
             steps{
@@ -8,7 +10,7 @@ pipeline {
         }
          stage("Test"){
             steps{
-                sh 'sudo apt install npm'
+                sh 'install npm'
                 sh 'npm test'
             }
         }
