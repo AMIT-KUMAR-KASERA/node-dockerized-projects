@@ -10,8 +10,8 @@ pipeline {
          stage("Test"){
             steps{
                 sh ' sudo apt install npm'
-                sh 'sudo npm install -g mocha'
-                sh 'chmod +x node_modules/.bin/mocha'
+                sh 'sudo npm install -g _mocha'
+                sh 'chmod +x node_modules/.bin/_mocha'
                 sh 'npm test'
             }
         }
