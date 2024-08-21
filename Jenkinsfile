@@ -1,9 +1,6 @@
 pipeline {
     agent any
-    environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub')
-        DOCKER_IMAGE = 'amitkasera2001/node_dockerized_project'
-    }
+    
   
     stages{
         stage("checkout"){
@@ -31,14 +28,16 @@ pipeline {
                 sh 'docker build -t amitkasera2001/node_dockerized_project .'
             }
         }
-        stage('Docker Push') {
+         stage('push image to hub') {
             steps {
-              script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                        sh "docker push amitkasera2001/node_dockerized_project"
-                    }
-                }
+                script{
+                  withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                  sh 'docker login -u amitkasera2001 -p ${dockerhubpwd}'
+             }
+                 sh 'docker push amitkasera2001/node_dockerized_project' 
+              }
             }
         }
+        
     }
 }
