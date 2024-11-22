@@ -25,7 +25,7 @@ pipeline {
 
         stage("Build Image"){
             steps{
-                sh 'docker build -t amitkasera2001/node_dockerized_project:v3 .'
+                sh 'docker build -t amitkasera2001/node_dockerized_project:v4 .'
             }
         }
          stage('push image to hub') {
@@ -34,7 +34,7 @@ pipeline {
                   withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
                   sh 'docker login -u amitkasera2001 -p ${dockerhubpwd}'
              }
-                 sh 'docker push amitkasera2001/node_dockerized_project:v3' 
+                 sh 'docker push amitkasera2001/node_dockerized_project:v4' 
               }
             }
         }
